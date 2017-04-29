@@ -1,0 +1,290 @@
+[
+    {
+        "id": "e6775679.389f5",
+        "type": "http request",
+        "z": "24bb725.d7d588e",
+        "name": "",
+        "method": "GET",
+        "ret": "txt",
+        "url": "http://api.open-notify.org/iss-now.json",
+        "tls": "",
+        "x": 357,
+        "y": 711,
+        "wires": [
+            [
+                "30ffd1e4.d288b6",
+                "c8238066.cebf1"
+            ]
+        ]
+    },
+    {
+        "id": "b7ffec77.042688",
+        "type": "inject",
+        "z": "24bb725.d7d588e",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "10",
+        "crontab": "",
+        "once": false,
+        "x": 129,
+        "y": 711,
+        "wires": [
+            [
+                "e6775679.389f5"
+            ]
+        ]
+    },
+    {
+        "id": "30ffd1e4.d288b6",
+        "type": "debug",
+        "z": "24bb725.d7d588e",
+        "name": "",
+        "active": false,
+        "console": "false",
+        "complete": "payload",
+        "x": 700,
+        "y": 650,
+        "wires": []
+    },
+    {
+        "id": "d6cc461d.4126d",
+        "type": "worldmap",
+        "z": "24bb725.d7d588e",
+        "name": "Saudi Pilots Plus",
+        "lat": "",
+        "lon": "",
+        "zoom": "",
+        "layer": "Nat Geo",
+        "cluster": "",
+        "maxage": "",
+        "usermenu": "show",
+        "panit": "false",
+        "x": 983,
+        "y": 587,
+        "wires": []
+    },
+    {
+        "id": "e6de633e.8d09d",
+        "type": "function",
+        "z": "24bb725.d7d588e",
+        "name": "iss_position2",
+        "func": "var info = msg.payload.iss_position;\nvar msg2 = msg;\n\ninfo.latitude = parseFloat(info.latitude);\ninfo.longitude = parseFloat(info.longitude);\nmsg2.payload = {\n    name: \"Saudi Pilots Plus\",\n    lat: info.latitude,\n    lon: info.longitude,\n    icon: \"plane\",\n    url: \"www.Camp4Tech.com\",\n    photoUrl: \"https://drive.google.com/open?id=0B-CoL1JbPLLVNnlQQnBlTWlfVjA\",\n};\n\n\n//msg2.payload.command =  {layer:\"Nat Geo\", lat:51, lon:3, zoom:10 };\n// msg2.payload.command =  {layer:\"Nat Geo\", zoom:3, intensity : 3};\nmsg2.topic = \"Map\";\n\n// info = [ [51.05, -0.08], [51.5, -1], [51.2, -0.047] ];\n// info = {\n//     \"action\": \"draw\",\n//     \"type\": \"rectangle\",\n//     \"points\": [ \n//         {\n//             \"lat\": 50.61243889044519,\n//             \"lng\": -1.5913009643554688 },\n//         {\n//             \"lat\": 50.66665471366635,\n//             \"lng\": -1.5913009643554688 }, \n//         { \n//             \"lat\": 50.66665471366635, \n//             \"lng\": -1.4742279052734375 }, \n//         {\n//             \"lat\": 50.61243889044519, \n//             \"lng\": -1.4742279052734375 \n//         } ] };\n        \n\nmsg = {};\nmsg.payload = {};\nmsg.url = \"https://api.nasa.gov/planetary/earth/imagery?lon=\"+(parseFloat(info.longitude))+\"&lat=\"+(parseFloat(info.latitude))+\"&date=2016-08-01&cloud_score=True&api_key=4l5cNOzeLtOQI7AQXhdolCXso1qEr7ZIpqF7KwBy\";\n\n\nreturn [msg, msg2];",
+        "outputs": "2",
+        "noerr": 0,
+        "x": 134,
+        "y": 930,
+        "wires": [
+            [
+                "93fc92.e0f4db7",
+                "89c4a9ef.abfb7"
+            ],
+            [
+                "93fc92.e0f4db7",
+                "725e2280.6c91a4"
+            ]
+        ]
+    },
+    {
+        "id": "c8238066.cebf1",
+        "type": "json",
+        "z": "24bb725.d7d588e",
+        "name": "",
+        "x": 624,
+        "y": 709,
+        "wires": [
+            [
+                "e6de633e.8d09d"
+            ]
+        ]
+    },
+    {
+        "id": "93fc92.e0f4db7",
+        "type": "debug",
+        "z": "24bb725.d7d588e",
+        "name": "",
+        "active": false,
+        "console": "false",
+        "complete": "true",
+        "x": 668,
+        "y": 828,
+        "wires": []
+    },
+    {
+        "id": "710e6565.fac85c",
+        "type": "debug",
+        "z": "24bb725.d7d588e",
+        "name": "debugOutput",
+        "active": false,
+        "console": "false",
+        "complete": "payload",
+        "x": 934.5,
+        "y": 1027,
+        "wires": []
+    },
+    {
+        "id": "89c4a9ef.abfb7",
+        "type": "json",
+        "z": "24bb725.d7d588e",
+        "name": "",
+        "x": 304.5,
+        "y": 1019,
+        "wires": [
+            [
+                "a80f22d4.efc85"
+            ]
+        ]
+    },
+    {
+        "id": "567c5a68.24929c",
+        "type": "json",
+        "z": "24bb725.d7d588e",
+        "name": "",
+        "x": 328.5,
+        "y": 1108,
+        "wires": [
+            [
+                "68700044.6fe4b",
+                "edfbde1e.055da"
+            ]
+        ]
+    },
+    {
+        "id": "a80f22d4.efc85",
+        "type": "www-request",
+        "z": "24bb725.d7d588e",
+        "name": "",
+        "method": "GET",
+        "ret": "txt",
+        "url": "",
+        "tls": "",
+        "x": 161.5,
+        "y": 1109,
+        "wires": [
+            [
+                "567c5a68.24929c",
+                "edfbde1e.055da"
+            ]
+        ]
+    },
+    {
+        "id": "725e2280.6c91a4",
+        "type": "function",
+        "z": "24bb725.d7d588e",
+        "name": "Combint Image with map window",
+        "func": "context.map = context.map || {};\ncontext.nasaImage = context.nasaImage || {};\n\nif (msg.topic == \"NasaImage\") {\n  context.nasaImage = msg;\n} \nelse if (msg.topic == \"Map\") {\n  context.map = msg;\n}\n\nif (context.map != {} && context.nasaImage != {}) {\n    // if(!context.nasaImage.contains(\"error\"))\n    // {\n    if(context.nasaImage.payload.url != null)\n    {\n        context.map.payload.photoUrl = context.nasaImage.payload.url;\n    }   \n        \n        return context.map;\n    // }\n    // else\n    // {\n    //     return context.map;\n    // }\n}\nelse\n{\n    msg = null;\n}\n\n// else {\n//   return null;\n// }",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 692.5,
+        "y": 912,
+        "wires": [
+            [
+                "d6cc461d.4126d",
+                "710e6565.fac85c"
+            ]
+        ]
+    },
+    {
+        "id": "68700044.6fe4b",
+        "type": "function",
+        "z": "24bb725.d7d588e",
+        "name": "NasaImage Topic",
+        "func": "msg.topic = \"NasaImage\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 542.5,
+        "y": 1028,
+        "wires": [
+            [
+                "725e2280.6c91a4"
+            ]
+        ]
+    },
+    {
+        "id": "edfbde1e.055da",
+        "type": "debug",
+        "z": "24bb725.d7d588e",
+        "name": "DebugRequest",
+        "active": false,
+        "console": "false",
+        "complete": "payload",
+        "x": 532.5,
+        "y": 1235,
+        "wires": []
+    },
+    {
+        "id": "e3a7c78f.a97438",
+        "type": "inject",
+        "z": "24bb725.d7d588e",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "x": 140.5,
+        "y": 579,
+        "wires": [
+            [
+                "9c1d2d40.e1ab48"
+            ]
+        ]
+    },
+    {
+        "id": "9c1d2d40.e1ab48",
+        "type": "function",
+        "z": "24bb725.d7d588e",
+        "name": "Map Intialization",
+        "func": "msg.payload = {\n    name: \"Saudi Pilots Plus\",\n    lat: 24.0,\n    lon: 46.0,\n    icon: \"plane\",\n    url: \"www.Camp4Tech.com\",\n    photoUrl: \"https://drive.google.com/open?id=0B-CoL1JbPLLVNnlQQnBlTWlfVjA\",\n};\n\nmsg.payload.command =  {layer:\"Nat Geo\", zoom:2, heatmap: };\n// { \"action\": \"point\", \"lat\": \"50.60634\", \"lon\": \"-1.66580\", \"point\": \"joe,male,mylayer\" };\n// msg.payload.command = { \"action\": \"layer\", \"name\": \"heatmap\" };\n\n// msg.payload.command = { action: \"point\", lat: \"38.27269\", lon: \"92.81250\", point: \"Abdullah\" };\n\n// msg.payload.command = { \"action\": \"draw\", \"type\": \"rectangle\", \"points\": [ { \"lat\": 50.61243889044519, \"lng\": -1.5913009643554688 }, { \"lat\": 50.66665471366635, \"lng\": -1.5913009643554688 }, { \"lat\": 50.66665471366635, \"lng\": -1.4742279052734375 }, { \"lat\": 50.61243889044519, \"lng\": -1.4742279052734375 } ] };\n// msg.payload.command =  {layer:\"heatmap\", zoom:3};\nreturn msg;",
+        "outputs": 1,
+        "noerr": 3,
+        "x": 550.5,
+        "y": 475,
+        "wires": [
+            [
+                "d6cc461d.4126d"
+            ]
+        ]
+    },
+    {
+        "id": "da5c31d0.48f85",
+        "type": "worldmap in",
+        "z": "24bb725.d7d588e",
+        "name": "",
+        "x": 145.5,
+        "y": 1317,
+        "wires": [
+            [
+                "73ca8b67.220024"
+            ]
+        ]
+    },
+    {
+        "id": "73ca8b67.220024",
+        "type": "debug",
+        "z": "24bb725.d7d588e",
+        "name": "MapInput",
+        "active": true,
+        "console": "false",
+        "complete": "payload",
+        "x": 682.5,
+        "y": 1318,
+        "wires": []
+    },
+    {
+        "id": "a1421480.7c83e8",
+        "type": "function",
+        "z": "24bb725.d7d588e",
+        "name": "",
+        "func": "// { \"action\": \"point\", \"lat\": \"50.60634\", \"lon\": \"-1.66580\", \"point\": \"joe,male,mylayer\" };\n// msg.payload.command = { \"action\": \"layer\", \"name\": \"heatmap\" };\n\n// msg.payload = { action: \"point\", lat: \"24.27269\", lon: \"48.81250\", point: \"Abdullah\", name:\"Just a point of Intrest\" };\n\n msg.payload = { \"action\": \"draw\", name:\"Many Points\" \"type\": \"rectangle\", \"points\": [ { \"lat\": 23.61243889044519, \"lng\": 48 }, { \"lat\": 50.66665471366635, \"lng\": -1.5913009643554688 }, { \"lat\": 50.66665471366635, \"lng\": -1.4742279052734375 }, { \"lat\": 50.61243889044519, \"lng\": -1.4742279052734375 } ] };\n// msg.payload.command =  {layer:\"heatmap\", zoom:3};\nreturn msg;",
+        "outputs": 1,
+        "noerr": 3,
+        "x": 494.5,
+        "y": 572,
+        "wires": [
+            []
+        ]
+    }
+]
